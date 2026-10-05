@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Exercise 3</title>
+
+    <style>
+        #highest {
+            color: green;
+            font-weight: bold;
+        }
+
+        #lowest {
+            color: red;
+            font-weight: bold;
+        }
+
+        #sum {
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>JS Exercise 3</h1>
+
+    <label>Enter a Number:</label>
+    <input type="number" id="number">
+    <br>
+    <br>
+
+    <button onclick="insertNumber()">Insert</button>
+    <button onclick="deleteAll()">Delete All</button>
+
+    <p>Numbers:</p>
+
+    <div id="numbers"></div>
+
+    <br>
+
+    <div>
+        Sum: <span id="sum"></span>
+    </div>
+
+    <div>
+        Highest: <span id="highest"></span>
+    </div>
+
+    <div>
+        Lowest: <span id="lowest"></span>
+    </div>
+
+
+    <script>
+
+        let numbers = [];
+
+
+        function insertNumber() {
+
+            let input = document.getElementById("number").value;
+
+            if (input == "") {
+                return;
+            }
+
+            let value = Number(input);
+
+            numbers.push(value);
+
+            document.getElementById("number").value = "";
+
+            showNumbers();
+            calculateResults();
+        }
+
+
+        function showNumbers() {
+
+            let output = "";
+
+            for (let i = 0; i < numbers.length; i++) {
+                output += numbers[i] + "<br>";
+            }
+
+            document.getElementById("numbers").innerHTML = output;
+        }
+
+
+        function calculateResults() {
+
+            if (numbers.length == 0) {
+                document.getElementById("sum").innerHTML = "";
+                document.getElementById("highest").innerHTML = "";
+                document.getElementById("lowest").innerHTML = "";
+                return;
+            }
+
+            let sum = 0;
+            let highest = numbers[0];
+            let lowest = numbers[0];
+
+            for (let i = 0; i < numbers.length; i++) {
+
+                sum = sum + numbers[i];
+
+                if (numbers[i] > highest) {
+                    highest = numbers[i];
+                }
+
+                if (numbers[i] < lowest) {
+                    lowest = numbers[i];
+                }
+            }
+
+            document.getElementById("sum").innerHTML = sum;
+            document.getElementById("highest").innerHTML = highest;
+            document.getElementById("lowest").innerHTML = lowest;
+        }
+
+
+        function deleteAll() {
+
+            numbers = [];
+
+            document.getElementById("number").value = "";
+            document.getElementById("numbers").innerHTML = "";
+            document.getElementById("sum").innerHTML = "";
+            document.getElementById("highest").innerHTML = "";
+            document.getElementById("lowest").innerHTML = "";
+        }
+
+    </script>
+
+</body>
+</html>
