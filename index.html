@@ -1,63 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JS Exercise 2</title>
+    <title>JS Exercise 3</title>
 
     <style>
-        .label {
-            display: inline-block;
-            width: 100px;
+        #highest {
+            color: green;
+            font-weight: bold;
+        }
+
+        #lowest {
+            color: red;
+            font-weight: bold;
+        }
+
+        #sum {
+            color: blue;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>JS Exercise 2</h1>
+    <h1>JS Exercise 3</h1>
 
-    <label class="label">First Name:</label>
-    <input type="text" id="firstName">
+    <label>Enter a Number:</label>
+    <input type="number" id="number">
+    <br>
     <br>
 
-    <label class="label">Middle Name:</label>
-    <input type="text" id="middleName">
+    <button onclick="insertNumber()">Insert</button>
+    <button onclick="deleteAll()">Delete All</button>
+
+    <p>Numbers:</p>
+
+    <div id="numbers"></div>
+
     <br>
 
-    <label class="label">Last Name:</label>
-    <input type="text" id="lastName">
-    <br>
+    <div>
+        Sum: <span id="sum"></span>
+    </div>
 
-    <label class="label"></label>
-    <button onclick="generateFullname()">Generate Fullname</button>
-    <button onclick="clearEntries()">Clear Entries</button>
+    <div>
+        Highest: <span id="highest"></span>
+    </div>
 
-    <p>
-        Full Name:<br>
-        <b id="fullName"></b>
-    </p>
+    <div>
+        Lowest: <span id="lowest"></span>
+    </div>
 
 
     <script>
 
-        function generateFullname() {
+        let numbers = [];
 
-            let first = document.getElementById("firstName").value;
-            let middle = document.getElementById("middleName").value;
-            let last = document.getElementById("lastName").value;
 
-            let fullname = first + " " + middle + " " + last;
+        function insertNumber() {
 
-            document.getElementById("fullName").innerHTML = fullname;
+            let input = document.getElementById("number").value;
+
+            if (input == "") {
+                return;
+            }
+
+            let value = Number(input);
+
+            numbers.push(value);
+
+            document.getElementById("number").value = "";
+
+            showNumbers();
+            calculateResults();
         }
 
 
-        function clearEntries() {
+        function showNumbers() {
 
-            document.getElementById("firstName").value = "";
-            document.getElementById("middleName").value = "";
-            document.getElementById("lastName").value = "";
+            let output = "";
 
-            document.getElementById("fullName").innerHTML = "";
+            for (let i = 0; i < numbers.length; i++) {
+                output += numbers[i] + "<br>";
+            }
+
+            document.getElementById("numbers").innerHTML = output;
+        }
+
+
+        function calculateResults() {
+
+            if (numbers.length == 0) {
+                document.getElementById("sum").innerHTML = "";
+                document.getElementById("highest").innerHTML = "";
+                document.getElementById("lowest").innerHTML = "";
+                return;
+            }
+
+            let sum = 0;
+            let highest = numbers[0];
+            let lowest = numbers[0];
+
+            for (let i = 0; i < numbers.length; i++) {
+
+                sum = sum + numbers[i];
+
+                if (numbers[i] > highest) {
+                    highest = numbers[i];
+                }
+
+                if (numbers[i] < lowest) {
+                    lowest = numbers[i];
+                }
+            }
+
+            document.getElementById("sum").innerHTML = sum;
+            document.getElementById("highest").innerHTML = highest;
+            document.getElementById("lowest").innerHTML = lowest;
+        }
+
+
+        function deleteAll() {
+
+            numbers = [];
+
+            document.getElementById("number").value = "";
+            document.getElementById("numbers").innerHTML = "";
+            document.getElementById("sum").innerHTML = "";
+            document.getElementById("highest").innerHTML = "";
+            document.getElementById("lowest").innerHTML = "";
         }
 
     </script>
